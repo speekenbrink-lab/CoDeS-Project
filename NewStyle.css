@@ -1,0 +1,270 @@
+
+body, .playButton, .continueButton {
+    font-size: 100%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.gameWrapper {
+    display: table !important;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.gameContainer {
+    display: table-cell !important;
+    vertical-align: top;
+    /* to adjust for the fact that the wrapper often cuts out a bit on mobile devices */
+    margin-right: 5%;
+}
+
+#canvasContainer, .demoBox {
+    vertical-align: top;
+    position: relative !important;
+    max-width: 700px;
+    min-width: 350px;
+    margin: 0 auto 0 auto;
+}
+
+#gameCanvas {
+    vertical-align: top;
+    position: relative;
+    display: inline;
+    z-index: -4;
+}
+
+#effectCanvas, #uiCanvas, #infoCanvas, #boxCanvas {
+    vertical-align: top;
+    position: absolute;
+    top: 0;
+    max-width: 100%;
+    min-width: 50%;
+}
+
+#effectCanvas {
+    z-index: -3;
+}
+
+#uiCanvas {
+    z-index: -2;
+}
+
+#infoCanvas {
+    z-index: -1;
+}
+
+#boxCanvas {
+    z-index: 1;
+}
+
+.buttonContainer {
+    display: block;
+    position: relative !important;
+    max-width: 700px;
+    min-width: 350px;
+    margin: 0 auto;
+}
+
+.responsive {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.centeredOnCanvas{
+    position: absolute;
+    top: 0;
+    left: 5%;
+    bottom: 0;
+    right: 5%;
+}
+
+#demographics, #debriefing {
+    width: 100%;
+    padding-top: 107.14%;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.2em;
+    position: relative;
+    z-index: 3;
+}
+
+#prolificId {
+    width: 45%;
+    height: 5%
+}
+
+#age, #gender {
+    width: 35%;
+    height: 5%
+}
+
+#comment {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.2em;
+    position: absolute;
+    left: auto;
+    bottom: 5%;
+    width: 65%;
+    height: 25%;
+}
+
+#debriefButton {
+    position: absolute;
+    left: 65%;
+    bottom: 5%;
+    width: 30%;
+    height: 2.2em;
+}
+
+#goProlific {
+    position: absolute;
+    left: 5%;
+    bottom: 33%;
+    width: 90%;
+    height: 3em;
+    z-index: 4;
+}
+
+#startButton{
+    z-index: 2;
+    width: 30%;
+    height: 8%;
+    position: absolute;
+    top: 88.8%;
+    left: 35%;
+
+}
+
+#submitButton{
+    z-index: 2;
+    width: 30%;
+    height: 2.5em;
+    position: absolute;
+    top: 88.8%;
+    left: 35%;
+}
+
+#nextButton, #backButton{
+    z-index: 2;
+    width: 20%;
+    height: 8%;
+    position: absolute;
+    top: 88.8%;
+}
+
+#nextButton {
+    left: 75%;
+}
+
+#backButton{
+    left: 5%;
+}
+
+#gameBox{
+    z-index: 0;
+    width: 90%;
+    height: 32.6%;
+    opacity: 0.7;
+    position: absolute;
+    top: 64%;
+    left: 5%;
+}
+
+#fullGameBox{
+    z-index: 0;
+    width: 90%;
+    height: 83.6%;
+    position: absolute;
+    top: 13.2%;
+    left: 5%;
+}
+
+.gameBox, .playButton, .continueButton, .demoBox{
+    border-radius: 0.4em;
+    font-family: "Eagle Lake", cursive;
+    font-style: italic;
+    color: #DAA520;
+    border: 0.13em ridge #DAA520;
+    background-color: #333d3f;
+    background-image: linear-gradient(90deg, rgba(51,61,63,.07) 50%, transparent 50%);
+    text-decoration: none;
+}
+
+.gameBox, .continueButton{
+    font-size: 140%;
+    background-size: 1.3%, 2.9%, 3.7%, 5.3%;
+    padding: 1% 2% 1% 2%;
+}
+
+.playButton {
+    visibility: hidden;
+    font-size: 1.5em;
+    background-size: 1.3%, 2.9%, 3.7%, 5.3%;
+    padding: 2% 4% 2% 4%;
+    z-index: 3;
+}
+
+.continueButton:hover, .playButton:hover{
+    background: #525b68;
+    text-decoration: none;
+}
+
+.playButton:active{
+    background: #B0C4DE;
+    top: 0.13em;
+    text-decoration: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#pbDown:active{
+    top: 2.6em;
+}
+
+#pbUp {
+    width: 38%;
+    height: 2.5em;
+    position: absolute; left: 31%
+}
+
+#pbLeft {
+    width: 31%;
+    height: 5em;
+    position: absolute; left: 0
+}
+
+#pbRight {
+    width: 31%;
+    height: 5em;
+    position: absolute; left: 69%
+}
+
+#pbDown {
+    width: 38%;
+    height: 2.5em;
+    position: absolute; left: 31%; top: 2.5em;
+}
+
+#cheatNextButton {
+    width: 50%;
+    height: 3%;
+    position: absolute; left: 0; bottom: 0;
+    z-index: 4;
+}
+
+#cheatTestButton {
+    width: 50%;
+    height: 3%;
+    position: absolute; right: 0; bottom: 0;
+    z-index: 4;
+}
+
+#overrideBootstrap{
+    height: 1px;
+}

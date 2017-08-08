@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <!-- META / STYLE / TITLE-->
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+    <!-- prevents double-tab zoom on iOS -->
+    <meta name="viewport" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+    <meta name='description' content=''>
+    <meta name='author' content='Moritz Krusche'>
+    <link rel='stylesheet' type='text/css' href='NewStyle.css'>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link href='https://fonts.googleapis.com/css?family=Eagle Lake' rel='stylesheet'>
+
+    <title>The Potato Game</title>
+</head>
+
+<body style='background-image: radial-gradient(ellipse farthest-corner at center, #F5F5DC 0%, #FAEBD7 100%) !important;'>
+<!-- one px high element prevents white body background-color from bootstrap -->
+<div id='overrideBootstrap'></div>
+
+<!-- GAME PAGE  -->
+<div class='gameWrapper'>
+    <div class='gameContainer'>
+
+        <!-- GAME CANVASES & BOXES  -->
+        <div id='canvasContainer'>
+            <canvas class = 'responsive' id='gameCanvas' width='700' height='750' style='display:block'></canvas>
+            <canvas class = 'responsive' id='effectCanvas' width='700' height='750' style='display:block'></canvas>
+            <canvas class = 'responsive' id='uiCanvas' width='700' height='750' style='display:block'></canvas>
+            <canvas class = 'responsive' id='infoCanvas' width='700' height='750' style='display:block'></canvas>
+            <canvas class = 'responsive' id='boxCanvas' width='700' height='750' style='display:block'></canvas>
+            <!-- pop-up boxes for instructions in-game -->
+            <div class='gameBox' id='gameBox' style='display:none'> </div>
+            <div class='gameBox' id='fullGameBox' style='display:none'> </div>
+
+            <!-- Buttons on canvas area -->
+            <button class='continueButton' id='nextButton' style='display:none' onclick='buttonNext()' >Next</button>
+            <button class='continueButton' id='backButton' style='display:none' onclick='buttonBack()' >Back</button>
+            <button class='continueButton' id='startButton' style='display:none' onclick='buttonStartLevel()' >Start</button>
+            <button class='continueButton' id='goProlific' style='display:none' onclick='buttonGoProlific()'>Proof
+                Completion to Prolific</button>
+            <!-- cheat buttons -->
+            <button id ='cheatTestButton' style='display:none' onclick='nextLevelTestLevel()' >CHEAT TO TEST MAP 1</button>
+            <button id ='cheatNextButton' style='display:none' onclick='nextLevel()' >CHEAT TO NEXT MAP</button>
+        </div>
+        <!-- END canvases & boxes -->
+
+        <!-- Buttons for mobile below canvas area -->
+        <div class='buttonContainer' >
+            <button class='playButton' id='pbUp' onmousedown='buttonUp()' onmouseup='buttonFalse()' > Up </button>
+        </div>
+        <div class='buttonContainer' >
+            <button class='playButton' id='pbLeft' onmousedown='buttonLeft()' onmouseup='buttonFalse()' >Left</button>
+            <button class='playButton' id='pbRight' onmousedown='buttonRight()' onmouseup='buttonFalse()' >Right</button>
+        </div>
+        <div class='buttonContainer' >
+            <button class='playButton' id='pbDown' onmousedown='buttonDown()' onmouseup='buttonFalse()' >Down</button>
+        </div>
+        <!-- END buttons for mobile -->
+    </div>
+</div>
+<!-- END gamePage -->
+
+<!-- DEMOGRAPHICS PAGE -->
+<div class='gameWrapper'>
+    <div class='gameContainer'>
+        <div class = 'demoBox' id='demoBox' style='display:block'>
+
+            <form id='demographics' >
+                <div class = 'centeredOnCanvas'>
+
+                    <div>
+                        <h3>Demographic Information</h3>
+                        <p>Before the start of the experiment we have to collect standard demographic information. <br>
+                            Your Prolific ID is solely used to process participation and payoff, and will thereafter be deleted.
+                        </p>
+                    </div>
+
+                    <!-- Prolific ID-->
+                    <div class='input'>
+                        <h4>Prolific ID</h4>
+                        <label for='prolificId'></label>
+                        <input type='text' name='prolificId' id='prolificId' required
+                               placeholder='Please enter your Prolific ID'
+                               oninvalid="setCustomValidity('Please enter your Prolific ID!')"
+                               onchange="try{setCustomValidity('')}catch(e){}">
+                    </div>
+
+                    <!-- age -->
+                    <div class='input'>
+                        <h4>Age</h4>
+                        <label for='age'></label>
+                        <select name='age' required id = 'age'
+                                oninvalid="setCustomValidity('Please select your age!')"
+                                onchange="try{setCustomValidity('')}catch(e){}">
+                            <option value = ''>Please select your age</option>
+                            <option value = '18-25'>18-25</option>
+                            <option value = '26-35'>26-35</option>
+                            <option value = '36-45'>36-45</option>
+                            <option value = '46-55'>46-55</option>
+                            <option value = '56-65'>56-65</option>
+                            <option value = '65+'>65+</option>
+                        </select>
+                    </div>
+
+                    <!-- gender -->
+                    <div class='input'>
+                        <h4>Gender</h4>
+                        <label for='gender'></label>
+                        <select name='gender' required id = 'gender'
+                                oninvalid="setCustomValidity('Please select your gender!')"
+                                onchange="try{setCustomValidity('')}catch(e){}">
+                            <option value = ''>Please select your gender</option>
+                            <option value = 'female'>female</option>
+                            <option value = 'male'>male</option>
+                            <option value = 'other'>other</option>
+                        </select>
+                    </div>
+                    <input type='submit' value="Submit" class='continueButton' id='submitButton' />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- END demographicsPage -->
+
+<!-- DEBRIEFING PAGE -->
+<div class='gameWrapper'>
+    <div class='gameContainer'>
+        <div class = 'demoBox' id='debriefBox' style='display:none'>
+
+            <form novalidate id='debriefing' >
+                <div class = 'centeredOnCanvas'>
+
+                    <!-- feedback-->
+                    <label for='comment'></label>
+                    <textarea rows='4' cols='50'
+                              placeholder='Please enter any comments that you may have here. This is optional and will be processed anonymously.'
+                              name='comment' id='comment'></textarea>
+                    <input type='submit' value="Submit" class='continueButton' id='debriefButton' />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- END debriefingPage -->
+
+<!-- JavaScript files -->
+
+<!-- LIBRARIES -->
+<script src='js/jstat.min.js'></script>
+<script src='js/howler.core.min.js'></script>
+<!-- initialising firebase to store data  -->
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-database.js"></script>
+
+<!-- MAIN EXPERIMENT JS FILES -->
+<script src='js/GraphicsCommon.js'></script>
+<script src='js/AssetLoading.js'></script>
+<script src='js/Instructions.js'></script>
+<script src='js/World.js'></script>
+<script src='js/Maps8.js'></script>
+<script src='js/Input.js'></script>
+<script src='js/Movement.js'></script>
+<script src='js/Animation.js'></script>
+<script src='js/Main.js'></script>
+
+</body>
+</html>
+

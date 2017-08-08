@@ -1,267 +1,417 @@
+
+//******************************** WORLD CREATION & RENDERING **********************************************************
+
+// changing any const would break the graphics
 const TILE_W = 100;
 const TILE_H = 100;
-const TILE_COLS = 20;
-const TILE_ROWS = 20;
+const PLANT_W = 60;
+const PLANT_H = 60;
 
-var levelThree;
-levelThree = [[["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1]],
-    [["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1]],
-    [["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1], ["S1C", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 2, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1]]];
+// keeps track of everything that stays the same on a given map
+// for minQual and tilesheets: same on all maps atm
+var curMapConst = {
+    columnParameters: [],
+    rowParameters: [],
 
-levelX_OLD = [[["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3], ["S1A", "P1A", 3, 3]],
-    [["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 1, 1], ["S1A", "P1D", 3, 3]],
-    [["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 1, 1], ["S1B", "P1A", 3, 3]],
-    [["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 1], ["S1C", "P1A", 3, 3]],
-    [["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 3]],
-    [["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 1], ["S1A", "P1A", 3, 3]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 3, 3]],
-    [["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 1, 1], ["S1A", "P1A", 3, 3]]];
+    maxMoves: 0,
+    potatoPrice: 0,
+    discountFactor: 0,
+    alpha1: 0,
+    beta1: 0,
+    alpha2: 0,
+    beta2: 0,
 
-levelX = [ [ [ 'B', 'D', 3, 3, 1 ],
-    [ 'C', 'A', 3, 3, 1 ],
-    [ 'A', 'A', 3, 3, 1 ],
-    [ 'A', 'A', 3, 3, 1 ],
-    [ 'B', 'A', 3, 3, 1 ],
-    [ 'A', 'C', 3, 3, 1 ],
-    [ 'D', 'C', 3, 3, 1 ],
-    [ 'B', 'A', 3, 3, 1 ] ],
-    [ [ 'C', 'A', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'C', 'A', 3, 3, 1 ],
-        [ 'D', 'D', 3, 3, 1 ],
-        [ 'B', 'B', 3, 3, 1 ],
-        [ 'D', 'C', 3, 3, 1 ],
-        [ 'C', 'C', 3, 3, 1 ] ],
-    [ [ 'A', 'B', 3, 3, 1 ],
-        [ 'B', 'A', 3, 3, 1 ],
-        [ 'C', 'B', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'C', 'D', 3, 3, 1 ],
-        [ 'C', 'D', 3, 3, 1 ],
-        [ 'B', 'B', 3, 3, 1 ],
-        [ 'D', 'C', 3, 3, 1 ] ],
-    [ [ 'C', 'D', 3, 3, 1 ],
-        [ 'C', 'D', 3, 3, 1 ],
-        [ 'A', 'D', 3, 3, 1 ],
-        [ 'B', 'A', 3, 3, 1 ],
-        [ 'C', 'C', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'C', 'A', 3, 3, 1 ],
-        [ 'B', 'A', 3, 3, 1 ] ],
-    [ [ 'D', 'C', 3, 3, 1 ],
-        [ 'C', 'D', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'B', 'C', 3, 3, 1 ],
-        [ 'C', 'C', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'D', 'C', 3, 3, 1 ],
-        [ 'D', 'B', 3, 3, 1 ] ],
-    [ [ 'A', 'A', 3, 3, 1 ],
-        [ 'D', 'D', 3, 3, 1 ],
-        [ 'B', 'D', 3, 3, 1 ],
-        [ 'A', 'D', 3, 3, 1 ],
-        [ 'D', 'C', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'C', 'D', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ] ],
-    [ [ 'B', 'B', 3, 3, 1 ],
-        [ 'C', 'C', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'B', 'A', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'A', 'C', 3, 3, 1 ],
-        [ 'B', 'D', 3, 3, 1 ] ],
-    [ [ 'B', 'D', 3, 3, 1 ],
-        [ 'A', 'C', 3, 3, 1 ],
-        [ 'A', 'D', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'A', 'A', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ],
-        [ 'C', 'C', 3, 3, 1 ],
-        [ 'D', 'A', 3, 3, 1 ] ] ];
+    minQuality1: 0.2,
+    minQuality2: 0.4,
+    minQuality3: 0.6,
+    minQuality4: 0.8,
 
-/*
+    soilSheet: NaN,
+    plantSheet: NaN
+};
 
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// keeps track of everything that is updated on a given map, and compares with static
+// loadNext --> load next lvl upon key input
+var curMapVar = {
 
-var soilTypes = ['A', 'B', 'C', 'D', 'E'];
-var plantTypes = ['A', 'B', 'C', 'D', 'E'];
+    tileGrid:[],
+    exploredColumn: [],
+    payoffColumn: [],
+    exploredRow: [],
+    payoffRow: [],
+    movesLeft: 0,
+    moveCount: 0,
+    potatoCount: 0,
+    potatoPrice: 0,
+    // payoffcount gets only added and never overwritten; how much $ part made in the game so far
+    payoffCount: 0,
 
-function setToDefault(level) {
-	for(var i = 0; i < level.length; i++) {
-        for(var j = 0; j < level[i].length; j++) {
-            level[i][j][0] = soilTypes[getRandomIntInclusive(0, 4)];
-            level[i][j][1] = plantTypes[getRandomIntInclusive(0, 4)];
-            level[i][j][2] = 3;
-            level[i][j][3] = 3;
-            // level[i][j].push(1)
+    movementTracker: [],
+    payoffTracker: [],
+    timeTracker: [],
+    lastTime: "",
+    nextTime: "",
+    startMapTime: "",
+    endMapTime: "",
 
+    loadId: NaN,
+    walkId: NaN,
+    pauseId: NaN,
+    errorId1: NaN,
+    errorId2: NaN,
+    backgroundId: NaN,
+
+    mobileSoundUnlocked: false
+};
+
+// holds the data logged at the end of every level, gets send to firebase at the end
+var loggedData = {
+    prolificId: "",
+    condition: "",
+    partAge: "",
+    partGender: "",
+    startDateTime: "",
+    endDateTime: "",
+
+    browserIsMobile: false,
+    allStartTimes: {},
+    allEndTimes: {},
+    allMoveTimes: {},
+
+    allColParameters: {},
+    allRowParameters: {},
+    allAlphaBetas: {},
+    allExploredCols: {},
+    allPayoffCols: {},
+    allExploredRows:  {},
+    allPayoffRows: {},
+
+    allPotatoCounts: {},
+    // payoffcount gets only added and never overwritten; how much $ part made in the game so far
+    payoffCount: 0,
+    allPayoffCounts: {},
+
+    allMovementTrackers: {},
+    allPayoffTrackers: {}
+};
+
+// MERGED LEVELS HAVE FORMAT DICT{ KEY: ARRAY[GRID, COL INFO, COL QUAL, COL PAYOFF, ROW INFO, ROW QUAL, ROW PAYOFF, MOVES ALLOWED etc.], KEY: ...}
+
+// lvlKeys should be array of strings; e.g. ['map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8'];
+
+function mergeLevels(lvlKeys, lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9, lvl10){
+    'use strict';
+    lvl1 = lvl1 || 0;
+    lvl2 = lvl2 || 0;
+    lvl3 = lvl3 || 0;
+    lvl4 = lvl4 || 0;
+    lvl5 = lvl5 || 0;
+    lvl6 = lvl6 || 0;
+    lvl7 = lvl7 || 0;
+    lvl8 = lvl8 || 0;
+    lvl9 = lvl9 || 0;
+    lvl10 = lvl10 || 0;
+
+    var levelList = [lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9, lvl10];
+    var levelKeys = lvlKeys;
+
+    var levelHolder = {};
+
+    for (var eachLevel=0; eachLevel<levelList.length; eachLevel++){
+        if (levelList[eachLevel]!== 0) {
+            var levelDetails = [];
+            var each = levelList[eachLevel];
+
+            levelDetails.push(each.tileGrid);
+            levelDetails.push(each.columnParameters);
+            levelDetails.push(each.payoffColumn);
+            levelDetails.push(each.exploredColumn);
+            levelDetails.push(each.rowParameters);
+            levelDetails.push(each.payoffRow);
+            levelDetails.push(each.exploredRow);
+            levelDetails.push(each.maxMoves);
+            levelDetails.push(each.alpha1);
+            levelDetails.push(each.beta1);
+            levelDetails.push(each.alpha2);
+            levelDetails.push(each.beta2);
+            levelDetails.push(each.potatoPrice);
+            levelDetails.push(each.discountFactor);
+
+            levelHolder[levelKeys[eachLevel]] = levelDetails;
         }
-	}
-
-}
-
-
-setToDefault(levelX);
-console.log(levelX);
-
-*/
-
-function updateInfo() {
-
-	posX = Math.floor((trackerX + shiftedLeft)/TILE_W);
-	posY = Math.floor((trackerY + shiftedUp)/TILE_H);
-
-	console.log("POS X, Y: ", posX, posY);
-    // console.log("TILEGRID Y, X: ", tileGrid[posY][posX]);
-
-
-    tileGrid[posY][posX] = tileGrid[posY][posX].slice();
-
-    // tileGrid[posY][posX][2] = 1;
-
-    for (i = posX -3; i <= posX + 3; i++ ) {
-        tileGrid[posY][i][3] = 1;
-	}
-    for (j = posY -3; j <= posY + 3; j++ ) {
-        tileGrid[j][posX][2] = 1;
     }
-
+    return levelHolder
 }
 
-var tileGrid = [];
 
-const TILE_PLANT1a = "P1A";
-const TILE_PLANT1b = "P1B";
-const TILE_PLANT1c = "P1C";
-const TILE_PLANT1d = "P1D";
-const TILE_PLANT1e = "P1E";
+function OpenLevelClass(numCols, numRows, maxMoves, alpha1, beta1, alpha2, beta2, potPrice, disFactor) {
+    'use strict';
+    this.maxMoves = maxMoves;
+    this.alpha1 = alpha1;
+    this.beta1 = beta1;
+    this.alpha2 = alpha2;
+    this.beta2 = beta2;
+    this.potatoPrice = potPrice;
+    this.discountFactor = disFactor;
 
-const TILE_PLANT2a = "P2A";
-const TILE_PLANT2b = "P2B";
-const TILE_PLANT2c = "P2C";
-const TILE_PLANT2d = "P2D";
-const TILE_PLANT2e = "P2E";
+    var that = this;
 
-const TILE_PLANT3a = "P3A";
-const TILE_PLANT3b = "P3B";
-const TILE_PLANT3c = "P3C";
-const TILE_PLANT3d = "P3D";
-const TILE_PLANT3e = "P3E";
+    // init arrays first to save memory vs. push()
+    that.tileGrid = new Array(numCols);
+    that.columnParameters = new Array(numCols);
+    that.rowParameters = new Array(numRows);
+    that.exploredColumn = new Array(numCols);
+    that.exploredRow = new Array(numRows);
+    that.payoffColumn = new Array(numCols);
+    that.payoffRow = new Array(numRows);
 
-const TILE_SOIL1a = "S1A";
-const TILE_SOIL1b = "S1B";
-const TILE_SOIL1c = "S1C";
-const TILE_SOIL1d = "S1D";
-const TILE_SOIL1e = "S1E";
+    (function () {
+        'use strict';
+        for (var eachCol=0; eachCol<numCols; eachCol++) {
+            that.exploredColumn[eachCol] = 0;
+            that.payoffColumn[eachCol] = 0;
+        }
 
-const TILE_SOIL2a = "S2A";
-const TILE_SOIL2b = "S2B";
-const TILE_SOIL2c = "S2C";
-const TILE_SOIL2d = "S2D";
-const TILE_SOIL2e = "S2E";
+        for (var eachRow=0; eachRow<numRows; eachRow++) {
+            that.exploredRow[eachRow] = 0;
+            that.payoffRow[eachRow] = 0;
+        }
+    })();
 
-const TILE_SOIL3a = "S3A";
-const TILE_SOIL3b = "S3B";
-const TILE_SOIL3c = "S3C";
-const TILE_SOIL3d = "S3D";
-const TILE_SOIL3e = "S3E";
+    (function () {
+        'use strict';
+        for (var eachRow=0; eachRow<numRows; eachRow++) {
+            var newRow = new Array(numCols);
+            for (var eachCol=0; eachCol<numCols; eachCol++) {
+                newRow[eachCol] = 0;
+            }
+            that.tileGrid[eachRow] = newRow
+        }
+    })();
 
-const TILE_EMPTY = "S00";
-const TILE_EXPLOITED = "SXX";
+    (function() {
+        'use strict';
+        for (var eachCol = 0; eachCol < numCols; eachCol++) {
+            that.columnParameters[eachCol] = jStat.beta.sample(alpha1, beta1);
+        }
 
-var Tile_Types = [TILE_PLANT1a, TILE_PLANT1b, TILE_PLANT1c, TILE_PLANT1d, TILE_PLANT1e, TILE_SOIL1a, TILE_SOIL1b, TILE_SOIL1c, TILE_SOIL1d, TILE_SOIL1e]
+        for (var eachRow = 0; eachRow < numRows; eachRow++) {
+            that.rowParameters[eachRow] = jStat.beta.sample(alpha2, beta2);
+        }
+    })();
+}
 
-//************************************************
-function getTileIndexAtPixelCoord(atX, atY) {
-	var warriorWorldCol = Math.floor(atX / TILE_W);
-	var warriorWorldRow = Math.floor(atY / TILE_H);
-	var tileIndexUnderWarrior = rowColToArrayIndex(warriorWorldCol, warriorWorldRow);
 
-	if(warriorWorldCol >= 0 && warriorWorldCol < TILE_COLS &&
-		warriorWorldRow >= 0 && warriorWorldRow < TILE_ROWS) {
-		return tileIndexUnderWarrior;
-	} // end of valid col and row
-
-	return undefined;
-} // end of warriorWorldHandling func
-//************************************************
-
-function isTileAtCoord(TileCol, TileRow) {
-    if (tileGrid[TileRow] != undefined) {
-        if (tileGrid[TileRow][TileCol] != undefined) {
+function isTileAtCoord(TileRow, TileCol) {
+    'use strict';
+    if (curMapVar.tileGrid[TileRow] !== undefined) {
+        if (curMapVar.tileGrid[TileRow][TileCol] !== undefined) {
             return true;
         }
     }
     return false;
 }
 
-function drawOnlyTilesOnScreen() {
-    // what are the top-left most col and row visible on canvas?
-    var cameraLeftMostCol = Math.floor(camPanX / TILE_W);
-    var cameraTopMostRow = Math.floor(camPanY / TILE_H);
-    // how many columns and rows of tiles fit on one screenful of area?
-    var colsThatFitOnScreen = Math.floor(canvas.width/2 / TILE_W);
-    var rowsThatFitOnScreen = Math.floor(canvas.height/2 / TILE_H);
 
-    // finding the rightmost and bottommost tiles to draw.
-    // the +1 on each pushes the new tile popping in off visible area
-    var cameraRightMostCol = cameraLeftMostCol + colsThatFitOnScreen + 1;
+function getType(TileCol, TileRow) {
+    'use strict';
+    var alpha1 = curMapConst.alpha1;
+    var beta1 = curMapConst.beta1;
+    var alpha2 = curMapConst.alpha2;
+    var beta2 = curMapConst.beta2;
+
+    //Maarten: add sum of alpha and beta parameters to explored count
+    var infoCol = curMapVar.exploredColumn[TileCol]+alpha1+beta1;
+    var infoRow = curMapVar.exploredRow[TileRow]+alpha2+beta2;
+
+    var infoLevelCol = getInfoLevel(infoCol, (alpha1+beta1));
+    var infoLevelRow = getInfoLevel(infoRow, (alpha2+beta2));
+
+    var qualityColRow = getQuality(TileCol, TileRow);
+
+    return [infoLevelCol, infoLevelRow, qualityColRow[0], qualityColRow[1]];
+}
+
+
+function getInfoLevel(rowOrCol, parameters) {
+    'use strict';
+    if (rowOrCol <= parameters) {
+        return 2;
+    }
+    else if (rowOrCol < 4+parameters) {
+        return 1;
+    }
+    else if (rowOrCol >= 4+parameters) {
+        return 0;
+    }
+}
+
+
+function getQualityLevel(fraction){
+
+    if (fraction < curMapConst.minQuality1) {
+        return 0;
+    }
+    else if (fraction < curMapConst.minQuality2) {
+        return 1;
+    }
+    else if (fraction < curMapConst.minQuality3) {
+        return 2;
+    }
+    else if (fraction < curMapConst.minQuality4) {
+        return 3;
+    }
+    else  {
+        return 4;
+    }
+}
+
+
+function getQuality(whichCol, whichRow){
+    "use strict";
+    var alpha1 = curMapConst.alpha1;
+    var beta1 = curMapConst.beta1;
+    var alpha2 = curMapConst.alpha2;
+    var beta2 = curMapConst.beta2;
+
+    // Pseudo-Bayesian estimation that neglects the corresponding row/ col parameter in the grid.
+    // Then again, they are to be independently estimated
+    var qualCol = ((alpha1+curMapVar.payoffColumn[whichCol])/(alpha1+beta1+curMapVar.exploredColumn[whichCol]));
+    var qualRow = ((alpha2+curMapVar.payoffRow[whichRow])/(alpha2+beta2+curMapVar.exploredRow[whichRow]));
+
+    var qualLevelCol = getQualityLevel(qualCol);
+    var qualLevelRow = getQualityLevel(qualRow);
+
+    return [qualLevelCol, qualLevelRow]
+}
+
+// universal class for drawing (static) tiles from a tile-sheet
+function TileSheetClass(image, sheetWidth, sheetHeight, rows, cols, offsetX, offsetY, drawWidth, drawHeight) {
+    'use strict';
+    this.SheetWidth = sheetWidth;
+    this.SheetHeight = sheetHeight;
+    this.SheetRows = rows;
+    this.SheetCols = cols;
+
+    var imageWidth = this.SheetWidth/this.SheetCols;
+    var imageHeight = this.SheetHeight/this.SheetRows;
+
+    // centers relatively smaller pictures, e.g. plants or rocks, on relatively larger tiles
+    this.offSetX = offsetX;
+    this.offSetY = offsetY;
+
+    this.draw = function(x, y, whichCol, whichRow) {
+
+        var sheetCol = imageHeight * whichCol;
+        var sheetRow = imageWidth * whichRow;
+
+        canvas.gameContext.drawImage(image, sheetCol, sheetRow, imageWidth, imageHeight, x+this.offSetX, y+this.offSetY,
+            drawWidth, drawHeight);
+    };
+}
+/*
+ Tilesheet Soil 100px
+
+ Column 0 1 2 --> Info 1,2,3
+
+ Column 3 --> path (0: no, 1: payoff) + water (3)
+
+ Row 0, 1, 2, 3, 4 --> Soil Quality 1,2,3,4,5
+
+ Tilesheet Plants 60px
+
+ Column 0 1 2 --> Info 1,2,3
+
+ Column 3 --> path (0: no, 1: payoff) + water (3)
+
+ Row 0, 1, 2, 3, 4 --> Soil Quality 1,2,3,4,5
+ */
+
+// this definition requires that the appropriately sized tile-sheet is delivered
+curMapConst.soilSheet = new TileSheetClass(assets.soilSheetPic, 5*TILE_W, 5*TILE_H, 5, 5, 0, 0, TILE_W, TILE_H);
+curMapConst.plantSheet = new TileSheetClass(assets.plantSheetPic, 5*PLANT_W, 5*PLANT_H, 5, 5, ((TILE_W-PLANT_W)/2), ((TILE_H-PLANT_H)/2), PLANT_W, PLANT_H);
+
+//******************************** DRAWING TILES WITHIN VISIBLE AREA DEPENDING ON COND & GAME STATUS *******************
+
+function drawVisibleTiles() {
+    'use strict';
+    // what are the top-left most row and col visible on canvas?
+    var cameraTopMostRow = Math.floor(camera.panY / TILE_H);
+    var cameraLeftMostCol = Math.floor(camera.panX / TILE_W);
+    // how many rows and columns of tiles fit on the canvas?
+    var colsThatFitOnScreen = Math.floor(CANVAS_W / TILE_W);
+    var rowsThatFitOnScreen = Math.floor(CANVAS_H / TILE_H);
+
+    // finding the rightmost and bottommost tiles to draw + 1 on the side
     var cameraBottomMostRow = cameraTopMostRow + rowsThatFitOnScreen + 1;
-
-    // var arrayIndex = 0;
+    var cameraRightMostCol = cameraLeftMostCol + colsThatFitOnScreen + 1;
 
     for(var eachRow=cameraTopMostRow; eachRow<cameraBottomMostRow; eachRow++) {
         for(var eachCol=cameraLeftMostCol; eachCol<cameraRightMostCol; eachCol++) {
 
-			if (isTileAtCoord(eachCol, eachRow)) {
-                var arrayIndex = tileGrid[eachRow][eachCol];
+            var drawX = eachCol * TILE_W;
+            var drawY = eachRow * TILE_H;
 
+			if (isTileAtCoord(eachRow, eachCol)) {
 
-				var soilType = "S" + arrayIndex[2] + arrayIndex[0];
-				//console.log("SOIL TYPE", soilType);
-                var plantType = "P" + arrayIndex[3] + arrayIndex[1];
+                var tilePos = curMapVar.tileGrid[eachRow][eachCol];
 
-                var soilImg = tilePics[soilType];
-                var plantImg = tilePics[plantType];
-                //var soilImg = tilePics[arrayIndex[0]];
-                //var plantImg = tilePics[arrayIndex[1]];
+                // Col/ Row is correct with respect to parameters and X/ Y; Row/ Col necessary due to JS Rows[Cols]
+                var type = getType(eachCol, eachRow);
 
-				var drawX = eachCol * TILE_W;
-				var drawY = eachRow * TILE_H;
-                canvasContext.drawImage(soilImg, drawX, drawY, TILE_W, TILE_H);
-                canvasContext.drawImage(plantImg, drawX, drawY, TILE_W, TILE_H);
+                var soilParameter = type[2];
+                var plantParameter = type[3];
+                var soilInfo = type[0];
+                var plantInfo = type[1];
+
+                // condition 2 & 4 invert the mapping of soil/ plant to row/ col (was col/ row in condition 1 & 2)
+                if (condition === 2 || condition === 4) {
+                    soilInfo = type[1];
+                    plantInfo = type[0];
+                    soilParameter = type[3];
+                    plantParameter = type[2];
+                }
+
+                switch(tilePos) {
+                    case 0: // standard tile that has not been explored/ exploited
+                        curMapConst.soilSheet.draw(drawX, drawY, soilInfo, soilParameter);
+                        curMapConst.plantSheet.draw(drawX, drawY, plantInfo, plantParameter);
+                        break;
+                    case 1: // explored tile (i.e. no potato)
+                        curMapConst.soilSheet.draw(drawX, drawY, 3, 0);
+                        break;
+                    case 3: // exploited tile (i.e. potato found)
+                        curMapConst.soilSheet.draw(drawX, drawY, 3, 1);
+                        break;
+                    case 5: // water tile
+                        curMapConst.soilSheet.draw(drawX, drawY, 3, 2);
+                        break;
+                    case 6: // water tile with red X
+                        curMapConst.soilSheet.draw(drawX, drawY, 3, 2);
+                        curMapConst.plantSheet.draw(drawX, drawY, 3, 1);
+                        break;
+                    case 7: // rock type 1 on top of normal soil
+                        curMapConst.soilSheet.draw(drawX, drawY, soilInfo, soilParameter);
+                        curMapConst.plantSheet.draw(drawX, drawY, 3, 2);
+                        break;
+                    case 8: // rock type 2 on top of normal soil
+                        curMapConst.soilSheet.draw(drawX, drawY, soilInfo, soilParameter);
+                        curMapConst.plantSheet.draw(drawX, drawY, 3, 3);
+                        break;
+                    case 9: // rock type 2 on top of normal soil
+                        curMapConst.soilSheet.draw(drawX, drawY, soilInfo, soilParameter);
+                        curMapConst.plantSheet.draw(drawX, drawY, 3, 4);
+                        break;
+                    default: // water tile
+                        curMapConst.soilSheet.draw(drawX, drawY, 3, 2);
+                        break;
+                }
             }
-        } // end of for each col
-    } // end of for each row
-} // end of drawBricks()
-
-
-
-function updatePos(posX, posY) {
-
-
+            else { // water tile
+                curMapConst.soilSheet.draw(drawX, drawY, 3, 2);
+            }
+        }
+    }
 }
+
+//******************************** END OF WORLD CREATION & RENDERING ***************************************************
